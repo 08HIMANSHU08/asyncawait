@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async</title>
+</head>
+<body>
+</body>
+<script>
+    console.log('person1: shows tickets');
+    console.log('person2: shows tickets');
+
+    const preMovie=async()=>{
+
+    const promiseWifeBringingTickets=new Promise((resolve,reject)=>{
+        setTimeout(()=>resolve('ticket'),1000);
+    })
+
+    const getPopcorn=new Promise((resolve,reject)=>resolve(`popcorn`));
+
+    const addButter=new Promise((resolve,reject)=>resolve(`butter`));
+
+    const getColdDrink=new Promise((resolve,reject)=>resolve(`coke`));
+
+    let ticket = await promiseWifeBringingTickets;
+
+    let [popcorn,butter,coke]=await Promise.all([getPopcorn,addButter,getColdDrink]);
+
+    // for tickets
+    console.log(`wife:I have ${ticket}`);
+    console.log('husband: we should go in');
+    console.log('wife:no i am hungry');
+        
+    // for popcorn
+    console.log(`husband:i got some ${popcorn}`);
+    console.log('husband: we should go in');
+    console.log('wife:I need butter on my popcorn');
+
+    //for butter
+    console.log(`husband: forgot coke`);
+    console.log('wife:get fast');
+
+    //for coke and final entry
+    console.log(`husband:i got some ${butter} on popcorn and ${coke}`);
+    console.log('husband: anything else');
+    console.log('wife:lets go we are getting late');
+    console.log('husband:thany you for the remainder');
+
+    return ticket;
+
+    }
+
+    preMovie().then((m)=>console.log(`person3: shows ${m}`));
+
+    console.log('person4: shows tickets');
+    console.log('person5: shows tickets');
+
+</script>
+</html>
