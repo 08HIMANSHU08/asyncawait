@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async</title>
+</head>
+<body>
+</body>
+<script>
+    
+
+const posts = [{title: 'POST1'},{title: 'POST2'}];
+
+
+    const postasync=async()=>{
+
+        const createPost=new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                posts.push({title: 'POST3'});
+                resolve('POST3')
+            },1000);
+        })
+        
+        const deletePost=new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                posts.pop();
+                resolve('delete last element');
+            },1000);
+        })
+        let [thirdPost,DeletePost] = await Promise.all([createPost,deletePost]);
+        console.log(`${thirdPost},${DeletePost}`)
+        return thirdPost;
+    }
+    postasync().then(()=>{
+        posts.forEach((post) => {
+        console.log(post.title)
+    })
+    });
+
+
+</script>
+</html>
